@@ -4,20 +4,21 @@ const totalQuantity = document.querySelector('.total-quantity');
 const totalCost = document.querySelector('.total-cost');
 const itemRows = document.querySelector('.item-rows');
 
-export const renderTotals = (cart) => {
-  const cost = cart
-    .reduce((prev, item) => prev + item.cost * item.quantity, 0)
+export const renderTotal = (cart) => {
+  const costTotal = cart
+    .reduce((prev, item) => prev + item.cost * item.quantity , 0)
     .toPrecision(6);
-  const quantity = cart.reduce((prev, item) => prev + item.quantity, 0);
-
-  totalQuantity.innerText = quantity;
-  totalCost.innerText = cost;
+  const quantityTotal = cart
+    .reduce((prev, item) => prev + item.quantity, 0);
+  
+    totalCost.innerText = costTotal;
+    totalQuantity.innerText = quantityTotal;
 };
 
 export const renderRows = (rows) => {
-  const domNodes = rows.map(({ product, quantity, cost }) =>
-    Row(product, quantity, cost.toPrecision(6))
-  );
+  const domNodes = rows.map(({product, quantity, cost}) => {
+    return Row(product, quantity, cost.toPrecision(5))
+  });
 
   itemRows.innerHTML = domNodes.join('');
 };
